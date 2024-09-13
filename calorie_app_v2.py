@@ -2,6 +2,8 @@ import tkinter as tk
 import customtkinter as ctk
 from tkinter import messagebox
 
+category = "NULL"
+
 def submit_onclick():
     if unit_system.get() == "metric":
         weight = weight_entry.get()
@@ -14,8 +16,20 @@ def submit_onclick():
 
     bmi = float(weight) / float(height) ** 2
     bmi_rounded = "{:.2f}".format(bmi)
+
+    if bmi < 18.5:
+        category = "Underweight"
+    elif 18.5 <= bmi < 25:
+        category = "Healthy"
+    elif 25 <= bmi < 30:
+        category = "Overweight"
+    elif 30 <= bmi < 40:
+        category = "Obese"
+    elif 40 <= bmi < 50:
+        category = "Severely Obese"
+
     messagebox.showinfo("Testing!", "Your height = " + str(height) + "m" + "\n" + "Your weight = " + str(weight) + "kg" +
-                        "\n" + "BMI = " + str(bmi_rounded))
+                        "\n" + "BMI = " + str(bmi_rounded) + "\n" + "BMI category = " + category)
 
 # Function to update input fields based on the selected unit system
 def update_input_fields():
